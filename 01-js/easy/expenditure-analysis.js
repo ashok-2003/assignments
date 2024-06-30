@@ -14,7 +14,29 @@
 */
 
 function calculateTotalSpentByCategory(transactions) {
-  return [];
+  let resultlist = [];
+  // so now here we have to iterater over the transactions here 
+  transactions.forEach(element => {
+    // so now here we have to to find index 
+    let checkindex = resultlist.findIndex(ele => ele.category == element.category);
+    // so  now here if the index is present here 
+    if(checkindex > -1){
+      // so now here we have to add the value to the price here 
+      resultlist[checkindex]["totalspend"] += element.price;
+    }
+    else{
+      // so now here we have to create the new object and push it thier 
+      let resultobject = {};
+      resultobject["ctegory"] = element.category;
+      resultobject["totalspend"] = element.price;
+      resultlist.push(resultobject);
+    }
+
+    console.log(resultlist);
+
+// so now here we have added the result here 
+    return resultlist;
+  });
 }
 
 module.exports = calculateTotalSpentByCategory;
