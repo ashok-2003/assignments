@@ -14,29 +14,35 @@
 */
 
 function calculateTotalSpentByCategory(transactions) {
-  let resultlist = [];
-  // so now here we have to iterater over the transactions here 
-  transactions.forEach(element => {
-    // so now here we have to to find index 
-    let checkindex = resultlist.findIndex(ele => ele.category == element.category);
-    // so  now here if the index is present here 
-    if(checkindex > -1){
-      // so now here we have to add the value to the price here 
-      resultlist[checkindex]["totalspend"] += element.price;
+  // so now it should return the array of object which have two parameter category and  price in it 
+  const ansFinal = [];
+  for(var i = 0; i < transactions.length; i++){
+    const catergoryName = transactions[i].category;
+    // so now here we have to check if the catergory is already availabe in it  
+    const val = IscategoryPresent(ansFinal , catergoryName);
+    // so now if the val is -1 then we have to add the new catergory here 
+    if(val == -1){
+      ansFinal.push({category : catergoryName ,
+        totalSpent : transactions[i].price
+      })
+    }else{
+      // so now here we have to add the value only here 
+      const currval = parseInt(transactions[i].price);
+      const prevval = parseInt(ansFinal[val].totalSpent);
+      ansFinal[val].totalSpent = currval+prevval
     }
-    else{
-      // so now here we have to create the new object and push it thier 
-      let resultobject = {};
-      resultobject["ctegory"] = element.category;
-      resultobject["totalspend"] = element.price;
-      resultlist.push(resultobject);
+  }
+
+  // so now return the ansfinal here 
+  return ansFinal
+}
+function IscategoryPresent(array , catergory){
+  for(let i = 0; i < array.length; i++){
+    if(array[i].category === catergory){
+      return i;
     }
-
-    console.log(resultlist);
-
-// so now here we have added the result here 
-    return resultlist;
-  });
+  }
+  return -1;
 }
 
 module.exports = calculateTotalSpentByCategory;
