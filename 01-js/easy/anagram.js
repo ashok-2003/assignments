@@ -5,28 +5,20 @@
 */
 
 function isAnagram(str1, str2) {
-  // so now here to check whether the funcntion is anagram or not we can try out here 
-  // so now create an array of length 26 here 
-  let arr = new Array(26);
-  // so now here we have to get increase the value from the first strings value here 
-  for(let i = 0; i < str1.length; i++){
-    const val = str1.charCodeAt(i) - 'a'.charCodeAt(0); 
-    // so now here we have to increase the value at that class here 
-    arr[val]++;
-  }
-  // so now we have to decrease the value in the next call here 
-  for(let i = 0; i < str2.length; i++){
-    const val = str2.charCodeAt(i) - 'a'.charCodeAt(0); 
-    // so now here we have to increase the value at that class here 
-    arr[val]--;
-  }
-  // so now here in the array we have to check if all the value in the array is zero or not 
-  for(let i = 0; i < 26; i++){
-    if(arr[i] != 0){
-      return false;
-    }
-  }
-  return true;
+  // so now here it should not be case sensitive and should works for the special character 
+  // so we can solve the problem by sorting the both string then we can easily compare the both stirng 
+  str1 =  str1.toLowerCase();
+  str2 = str2.toLowerCase();
+  const str1final = StortedString(str1);
+  const str2final = StortedString(str2);
+  return str1final === str2final;
+  
 }
+function StortedString(str){
+  // so now it convert it the array into char array then sort it then join and  return it 
 
+  const chararray = str.split('');
+  chararray.sort();
+  return chararray.join('');
+}
 module.exports = isAnagram;
